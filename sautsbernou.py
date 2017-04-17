@@ -59,12 +59,18 @@ def smile_bernou():
 #T = 0.5
 #Otype='Call'
 
-    S0 = 2872
-    liste_K= [2650, 2700, 2750 ,2800 ,2850, 2900, 2950, 3000 ]
-    liste_prix = [233 ,183, 135, 89 ,50 ,24, 9 ,3]
-    r=0.05
-    T = 0.04
+    S0 = 100;
+    r = 5/100;
+    liste_K = [0.8*S0 + 0.4*S0*i/float(20) for i in range(20)]
+    T = 0.25
     Otype='Call'
+    
+    
+    liste_prix = []
+    localvol = []
+    for i in range(len(liste_K)):
+        localvol.append(min([0.2+5*np.log(100./liste_K[i])**2+0.1*np.exp(-(T)), 0.6]))
+        liste_prix.append(BlackScholes("Call",S0,liste_K[i],r,localvol[i],T))
     
     liste_sigma = []
     
